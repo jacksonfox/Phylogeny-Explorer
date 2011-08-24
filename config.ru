@@ -1,2 +1,2 @@
-require 'explorer'
+require './explorer'
 run Sinatra::Application
