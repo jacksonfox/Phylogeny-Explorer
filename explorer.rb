@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'partials'
+require_relative 'partials'
 
 helpers Sinatra::Partials
 
