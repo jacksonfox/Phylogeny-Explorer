@@ -1,12 +1,12 @@
 <%= partial(:'common/header') %>
 <form action="/phylogeny" method="post">
 <ul class="species-list">
-<% @species.each do |s| %>
-  <li class="species" id="species-<%= s[:id] %>">
-    <img src="images/<%= s[:image] %>" />
+<% @all_species.each do |s| %>
+  <li class="species" id="species-<%= s.id %>">
+    <img src="images/<%= s.image %>" />
     <div>
-      <input type="checkbox" name="species[<%= s[:id] %>]" />
-      <label><%= s[:name] %></label>
+      <input type="checkbox" name="species[<%= s.id %>]" />
+      <label><%= s.name %></label>
     </div>
   </li>
 <% end %>
@@ -24,6 +24,13 @@
         checkbox.prop('checked', true)                
       }
       li.toggleClass('selected');
+    });
+    $('.species-list').imagesLoaded(function(){
+      $(this).masonry({
+        // options
+        itemSelector : '.species',
+        columnWidth : 220
+      });
     });
   });
 </script>

@@ -3,7 +3,7 @@
   <p>You selected...</p>
   <ul>
   <% @species.each do |s| %>
-    <li><%= s[:name] %></li>
+    <li><%= s.name %></li>
   <% end %>
   </ul>  
 <% else %>
