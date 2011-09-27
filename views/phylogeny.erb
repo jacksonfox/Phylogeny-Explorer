@@ -3,7 +3,10 @@
   <p>You selected...</p>
   <ul>
   <% @species.each do |s| %>
-    <li><%= s.name %></li>
+    <li>
+      <strong><%= s.name %>:</strong>
+      <%= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
+    </li>
   <% end %>
   </ul>  
 <% else %>

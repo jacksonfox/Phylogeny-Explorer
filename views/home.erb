@@ -1,7 +1,8 @@
 <%= partial(:'common/header') %>
+<hr />
 <form action="/phylogeny" method="post">
 <ul class="species-list">
-<% @all_species.each do |s| %>
+<% @collection.species.each do |s| %>
   <li class="species" id="species-<%= s.id %>">
     <img src="images/<%= s.image %>" />
     <div>
