@@ -1,20 +1,25 @@
 <%= partial(:'common/header') %>
-<% if !@species.nil? %>
-  <p>You selected...</p>
-  <ul>
-  <% @species.each do |s| %>
-    <li>
-      <strong><%= s.name %>:</strong>
-      <%= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
-    </li>
+<header>
+  <h1>Phylogeny Explorer</h1>
+  <a href="/" class="button">Home</a>
+</header>
+<section class="results">
+  <% if !@species.nil? %>
+    <p>You selected...</p>
+    <ul>
+    <% @species.each do |s| %>
+      <li>
+        <strong><%= s.name %>:</strong>
+        <%= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
+      </li>
+    <% end %>
+    </ul>  
+  <% else %>
+    <p>You didn't select any species</p>
   <% end %>
-  </ul>  
-<% else %>
-  <p>You didn't select any species</p>
-<% end %>
-<h2>Here's a demo tree...</h2>
-<div id="phylogeny-canvas"></div>
-<p><a href="/">Home</a></p>
+  <h2>Here's a demo tree...</h2>
+  <div id="phylogeny-canvas"></div>
+</section>
 <script>
   $(document).ready(function(){
     var dataObject = { newick: '(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);' };
