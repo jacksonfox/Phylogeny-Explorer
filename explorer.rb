@@ -1,19 +1,34 @@
 require 'rubygems'
 require 'sinatra'
 require 'csv'
+require 'yaml'
 require_relative 'partials'
 
 helpers Sinatra::Partials
 
+DATA_DIR = '/public/data/'
+DATA_URL = '/data/'
+
 class Collection
-  attr_accessor :species, :distances
+  attr_accessor :species, :distances, :name, :url
   
-  def initialize(species_file, distances_file)
+  def initialize(collection_name)
+    config_file = File.join(Dir.pwd, DATA_DIR, collection_name, 'config.yml')
+    config = YAML.load_file(config_file)
+        
+    @name = config['name']
+    @url = File.join(DATA_URL, collection_name)
+    
+    base_path = File.join(Dir.pwd, DATA_DIR, collection_name)
+
+    species_file = File.join(base_path, config['species_file'])
+    distances_file = File.join(base_path, config['distances_file'])
+        
     @species = []
     @distances = []
     
     CSV.foreach(species_file) do |s|
-      @species << Species.new(s)
+      @species << CollectionSpecies.new(s, self)
     end    
     
     CSV.foreach(distances_file) do |d|
@@ -49,32 +64,42 @@ class Collection
   # end
 end
 
-class Species
-  attr_accessor :id, :name, :image, :wiki_link, :div_link
-  def initialize(arr)
-    @id = arr[0].to_i
-    @name = arr[1]
-    @image = arr[2]
-    @wiki_link = arr[3]
-    @div_link = arr[4]
+class CollectionSpecies
+  attr_accessor :id, :name, :wiki_link, :div_link, :collection
+  
+  def initialize(data, collection)
+    @id = data[0].to_i
+    @name = data[1]
+    @image = data[2]
+    @wiki_link = data[3]
+    @div_link = data[4]
+    @collection = collection
+  end
+  
+  def image
+    File.join(@collection.url, @image)
   end
 end
 
 helpers do
 end
 
-collection = Collection.new('primates.csv', 'primates_dist.csv')
+collection = Collection.new('primates')
 
 get '/' do
-  @collection = collection
   erb :home
 end
 
-post '/phylogeny' do
+get '/explore' do
+  @collection = collection
+  erb :explore
+end
+
+post '/view' do
   @collection = collection
   unless params[:species].nil?
     species_ids = params[:species].collect {|s| s[0].to_i}
     @species = collection.species.select {|s| species_ids.include?(s.id)}
   end
-  erb :phylogeny
+  erb :view
 end
