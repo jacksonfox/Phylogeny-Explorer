@@ -22,7 +22,7 @@ h1 {
   Layout
 -------------------------------------------------- */
 
-.page {
+.wrapper {
   width: 960px;
   margin: 0 auto;
 }
@@ -61,6 +61,16 @@ header {
 }
 
 /* --------------------------------------------------
+  Clade Previews
+-------------------------------------------------- */
+
+.phylogeny-examples {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* --------------------------------------------------
   Species Selector
 -------------------------------------------------- */
 
@@ -90,6 +100,20 @@ header {
     padding: 0px 10px 10px;
     font-size: 18px;
   }
+  .species-links {
+    .cf;
+    font-size: 12px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    li {
+      float: left;
+      margin-right: 10px;
+    }
+    a {
+      text-decoration: none;
+    }
+  }
 }
 .selected {
   div {
@@ -111,4 +135,33 @@ header {
   background: #fff;
   margin: 0px;
   padding: 90px 20px 0px;  
+}
+
+/* --------------------------------------------------
+  Pages
+-------------------------------------------------- */
+
+.page {
+  .cf;
+  background: #fff;
+  line-height: 21px;
+  margin: 0px;
+  padding: 90px 40px 40px;  
+  article {
+    float: left;
+    width: 630px;
+    margin-right: 40px;
+  }
+}
+
+.sidebar {
+  float: right;
+  width: 210px;
+  h2 {
+    font-size: 14px;
+  }
+  img {
+    width: 200px;
+    border: 5px solid #eee;
+  }
 }

@@ -1,52 +1,28 @@
 <%= partial(:'common/header') %>
 <header>
   <h1>Phylogeny Explorer</h1>
-  <a href="#" class="button next">Create Phylogeny</a>
+  <a href="/explore" class="button next">Try it Out</a>
 </header>
-<form action="/phylogeny" method="post">
-  <ul class="species-list">
-  <% @collection.species.each do |s| %>
-    <li class="species" id="species-<%= s.id %>">
-      <img src="images/<%= s.image %>" />
-      <div>
-        <input type="checkbox" name="species[<%= s.id %>]" />
-        <label><%= s.name %></label>
-      </div>
-    </li>
-  <% end %>
-  </ul>
-</form>
-<script>
-  $(document).ready(function(){
-    $('.species-list').delegate('li', 'click', function(){
-      var checkbox = $(this).find('input[type=checkbox]');
-      var li = $(this);
-      if (checkbox.prop('checked')) {
-        checkbox.prop('checked', false)        
-      } else {
-        checkbox.prop('checked', true)                
-      }
-      li.toggleClass('selected');
-      var count = $(':checked').length;
-      if (count > 0) {
-        $('.next').html('Create Phylogeny <span>(' + count + ' Species)</span>');        
-      } else {
-        $('.next').text('Create Phylogeny');                
-      }
-    });
-    $('.species-list label').text(function(index, text){
-      return text.replace('_', ' ');      
-    });
-    $('.species-list').imagesLoaded(function(){
-      $(this).masonry({
-        // options
-        itemSelector : '.species',
-        columnWidth : 240
-      });
-    });
-    $('.next').click(function(){
-      $('form').submit();
-    });
-  });
-</script>
+<div class="page">
+  <article>
+    <h2>What is Phylogeny?</h2>
+    <p>The central tenant of Darwin’s Theory of evolution is that all living organisms are related via a process of descent with modification from a common ancestor. Phylogeny is  the manifestation of this pattern, and a vital concept in modern biology. Phylogenies are figures that track the descent from a common ancestor of some group of organisms. These organisms can be closely related (such as populations within a species) or distantly related (such as all living things on the planet). In either case, phylogenies allow biologists to understand the pattern of diversification, to infer degrees of relatedness among the species in the phylogeny, and to produce a rough estimate of the relative timing of diversification. Phylogenies can be estimated using different methods from many sources of data, but it is common for modern phylogenies to be based on the pattern of variation in DNA sequences.</p>
+    <h2>Try it Out</h2>
+    <ul class="phylogeny-examples">
+      <li>
+        <a href="/explore"><img src="/data/primates/preview.jpg" title="Click to explore ape phylogeny" /></a>
+      </li>
+    </ul>  
+  </article>
+  <div class="sidebar">
+    <aside>
+      <h2>An Example Phylogeny</h2>
+      <a href="/images/examples/basetree.jpg"><img src="/images/examples/basetree-preview.jpg" alt="Example Phylogenetic Tree" /></a>
+    </aside>
+    <aside>
+      <h2>An Example Data Set</h2>
+      <a href="/images/examples/example-data.png"><img src="/images/examples/example-data-preview.jpg" alt="Example Phylogenetic Data Set" /></a>
+    </aside>
+  </div>
+</div>
 <%= partial(:'common/footer') %>
