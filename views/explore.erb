@@ -1,0 +1,56 @@
+<%= partial(:'common/header') %>
+<header>
+  <h1>Phylogeny Explorer: <%= @collection.name %></h1>
+  <a href="#" class="button next">Create Phylogeny</a>
+</header>
+<form action="/view" method="post">
+  <ul class="species-list">
+  <% @collection.species.each do |s| %>
+    <li class="species" id="species-<%= s.id %>">
+      <img src="<%= s.image %>" />
+      <div>
+        <input type="checkbox" name="species[<%= s.id %>]" />
+        <label><%= s.name %></label>
+        <ul class="species-links">
+          <li><a href="<%= s.wiki_link %>">Wikipedia</a></li>
+          <li><a href="<%= s.div_link %>">Animal Diversity</a></li>
+        </ul>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+</form>
+<script>
+  $(document).ready(function(){
+    $('.species-list').delegate('li', 'click', function(){
+      var checkbox = $(this).find('input[type=checkbox]');
+      var li = $(this);
+      if (checkbox.prop('checked')) {
+        checkbox.prop('checked', false)        
+      } else {
+        checkbox.prop('checked', true)                
+      }
+      li.toggleClass('selected');
+      var count = $(':checked').length;
+      if (count > 0) {
+        $('.next').html('Create Phylogeny <span>(' + count + ' Species)</span>');        
+      } else {
+        $('.next').text('Create Phylogeny');                
+      }
+    });
+    $('.species-list label').text(function(index, text){
+      return text.replace('_', ' ');      
+    });
+    $('.species-list').imagesLoaded(function(){
+      $(this).masonry({
+        // options
+        itemSelector : '.species',
+        columnWidth : 240
+      });
+    });
+    $('.next').click(function(){
+      $('form').submit();
+    });
+  });
+</script>
+<%= partial(:'common/footer') %>
