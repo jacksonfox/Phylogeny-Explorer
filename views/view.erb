@@ -9,27 +9,35 @@
     <ul>
     <% @species.each do |s| %>
       <li>
-        <strong><%= s.name %>:</strong>
-        <%= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
+        <strong><%= s.name %></strong>
+        <%#= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
       </li>
     <% end %>
     </ul>  
   <% else %>
     <p>You didn't select any species</p>
   <% end %>
-  <h2>Here's a demo tree...</h2>
+  <h2>Testing generator end point...</h2>
+  <div id="generator-test"></div>
+  <h2>Testing tree generation...</h2>
   <div id="phylogeny-canvas"></div>
 </section>
 <script>
   $(document).ready(function(){
-    var coffee_demo = '(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);';
-    var primates_demo = '(Homo_sapiens:0.04209,Pan_troglodytes:0.04719,(Gorilla_gorilla:0.05229,(Pongo:0.08263,(Hylobates:0.09062,((Macaca_sylvanus:0.06002,(Macaca_fascicularis:0.04939,(Macaca_fuscata:0.01711,Macaca_mulatta:0.01860):0.02092):0.01810):0.06648,(Saimiri_sciureus:0.14193,Tarsius_syrichta:0.17785):0.01440):0.02576):0.01284):0.03095):0.00798);';
-    var dataObject = { newick: primates_demo };
-  	phylocanvas = new Smits.PhyloCanvas(
-  		dataObject,
-  		'phylogeny-canvas', 
-  		500, 500
-  	);
+    $.ajax({
+      type: 'POST',
+      url: '/generate',
+      data: {file: "<%= @collection.distances_file %>", exclude: "<%= @exclude.map{ |s| s.name }.join(',') %>"},
+      success: function(data) {
+        $('#generator-test').html(data);
+        var dataObject = { newick: data };
+        var phylocanvas = new Smits.PhyloCanvas(
+          dataObject,
+          'phylogeny-canvas', 
+          500, 500
+        );
+      }
+    });
   });
 </script>
 <%= partial(:'common/footer') %>
