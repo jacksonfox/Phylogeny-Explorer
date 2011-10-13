@@ -22,7 +22,9 @@
 </section>
 <script>
   $(document).ready(function(){
-    var dataObject = { newick: '(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);' };
+    var coffee_demo = '(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);';
+    var primates_demo = '(Homo_sapiens:0.04209,Pan_troglodytes:0.04719,(Gorilla_gorilla:0.05229,(Pongo:0.08263,(Hylobates:0.09062,((Macaca_sylvanus:0.06002,(Macaca_fascicularis:0.04939,(Macaca_fuscata:0.01711,Macaca_mulatta:0.01860):0.02092):0.01810):0.06648,(Saimiri_sciureus:0.14193,Tarsius_syrichta:0.17785):0.01440):0.02576):0.01284):0.03095):0.00798);';
+    var dataObject = { newick: primates_demo };
   	phylocanvas = new Smits.PhyloCanvas(
   		dataObject,
   		'phylogeny-canvas', 
