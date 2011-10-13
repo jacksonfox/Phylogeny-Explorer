@@ -1,4 +1,4 @@
 name: Primates
 preview_image: preview.jpg
 species_file: primates.csv
-distances_file: primates_dist.csv
+distances_file: primates.dist
