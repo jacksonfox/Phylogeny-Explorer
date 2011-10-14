@@ -66,9 +66,9 @@ end
 
 post '/generate' do
   distances_file = params[:file]
-  exclude_species = params[:exclude]
+  species = params[:species]
   status 200
-  output = `bin/make_tree.pl --file #{distances_file} --exclude #{exclude_species}`
+  output = `bin/make_tree.pl --file #{distances_file} --species #{species}`
   body(output)
 end
 
@@ -77,7 +77,6 @@ post '/view' do
   unless params[:species].nil?
     species_ids = params[:species].collect {|s| s[0].to_i}
     @species = collection.species.select {|s| species_ids.include?(s.id)}
-    @exclude = collection.species.select {|s| !species_ids.include?(s.id)}
   end
   erb :view
 end

@@ -10,7 +10,6 @@
     <% @species.each do |s| %>
       <li>
         <strong><%= s.name %></strong>
-        <%#= @collection.distances_from(s, *@species.select{ |s2| s != s2 }) %>
       </li>
     <% end %>
     </ul>  
@@ -27,7 +26,7 @@
     $.ajax({
       type: 'POST',
       url: '/generate',
-      data: {file: "<%= @collection.distances_file %>", exclude: "<%= @exclude.map{ |s| s.name }.join(',') %>"},
+      data: {file: "<%= @collection.distances_file %>", species: "<%= @species.map{ |s| s.name }.join(',') %>"},
       success: function(data) {
         $('#generator-test').html(data);
         var dataObject = { newick: data };
