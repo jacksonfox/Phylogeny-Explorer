@@ -31,6 +31,7 @@ end
 distances_file = ARGV[0]
 output_file = ARGV[1]
 $distances = []
+species = []
 
 CSV.foreach(distances_file) do |d|
   $distances << {
@@ -40,7 +41,10 @@ CSV.foreach(distances_file) do |d|
   }
 end
 
-species = $distances.collect{|d| d[:s1]}.uniq
+$distances.each do |d|
+  species << d[:s1] << d[:s2]
+end
+species.uniq!
 
 output = File.open(output_file, 'w')
 
