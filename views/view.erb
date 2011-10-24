@@ -26,7 +26,7 @@
     $.ajax({
       type: 'POST',
       url: '/generate',
-      data: {file: "<%= @collection.distances_file %>", species: "<%= @species.map{ |s| s.name }.join(',') %>"},
+      data: { species: "<%= @species.map{ |s| s.id }.join(',') %>" },
       success: function(data) {
         $('#generator-test').html(data);
         var dataObject = { newick: data };
