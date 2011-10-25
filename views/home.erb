@@ -1,24 +1,22 @@
 <%= partial(:'common/header') %>
-<header>
+<div class="homepage page">
   <h1>Phylogeny Explorer</h1>
-  <a href="/explore" class="button next">Try it Out</a>
-</header>
-<div class="page">
   <article>
     <h2>What is Phylogeny?</h2>
     <p>The central tenant of Darwin’s Theory of evolution is that all living organisms are related via a process of descent with modification from a common ancestor. Phylogeny is  the manifestation of this pattern, and a vital concept in modern biology. Phylogenies are figures that track the descent from a common ancestor of some group of organisms. These organisms can be closely related (such as populations within a species) or distantly related (such as all living things on the planet). In either case, phylogenies allow biologists to understand the pattern of diversification, to infer degrees of relatedness among the species in the phylogeny, and to produce a rough estimate of the relative timing of diversification. Phylogenies can be estimated using different methods from many sources of data, but it is common for modern phylogenies to be based on the pattern of variation in DNA sequences.</p>
-    <h2>Try it Out</h2>
+    <h2>Try it Out <span class="instructions">(choose a collection to start)</span></h2>
     <ul class="phylogeny-examples">
-      <li>
-        <a href="/explore"><img src="/data/primates/preview.jpg" title="Click to explore ape phylogeny" /></a>
+      <li class="example">
+        <a href="/explore"><img src="/data/primates/preview.jpg" title="Click to explore primate phylogeny" /></a>
+        <a href="/explore" class="try-it">Primates</a>
       </li>
     </ul>  
   </article>
   <div class="sidebar">
+    <h2>Learn More</h2>
     <aside>
-      <h2>An Example Phylogeny</h2>
       <a rel="examples" href="/images/examples/basetree.jpg" title="This is an example phylogenetic tree, keep clicking to learn more about the parts of the tree..."><img src="/images/examples/basetree-preview.jpg" alt="Example phylogenetic tree" /></a>
-      <p><a class="launch-examples" href="/images/examples/basetree.jpg">Want to see what a phylogeny looks like</a>?</p>
+      <p>Want to see what a phylogeny looks like? <a class="launch-examples" href="/images/examples/basetree.jpg">Check out this example tree</a>.</p>
       <div class="hide">
         <a rel="examples" href="/images/examples/ancestor.jpg" title="<em><strong>Ancestral taxa</strong></em> – species that existed in the past, and that are represented by the internal nodes of the phylogeny."></a>
         <a rel="examples" href="/images/examples/clade.jpg" title="<em><strong>Clade</strong></em> – a group of extant species derived from a common ancestor. D, E and F form a clade in the tree above."></a>
@@ -28,8 +26,8 @@
       </div>
     </aside>
     <aside>
-      <h2>An Example Data Set</h2>
       <a class="fancy" href="/images/examples/example-data.png" title="An example phylogenetic data set"><img src="/images/examples/example-data-preview.jpg" alt="An example phylogenetic data set" /></a>
+      <p>Take a look at an example phylogenetic data set.</p>
     </aside>
   </div>
 </div>
