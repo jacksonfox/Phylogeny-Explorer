@@ -1,7 +1,7 @@
 <%= partial(:'common/header') %>
 <header>
   <h1>Phylogeny Explorer: <%= @collection.name %></h1>
-  <a href="#" class="button next">Create Phylogeny</a>
+  <a href="#" class="create-phylogeny button next">Create Phylogeny</a>
 </header>
 <form action="/view" method="post">
   <ul class="species-list">
@@ -20,36 +20,85 @@
   <% end %>
   </ul>
 </form>
+<div id="toolbar">
+  <a href="/" class="home button">Back Home</a>
+  <a href="#" class="create-phylogeny button next">Create Phylogeny</a>
+  <div class="select-actions">
+    <a href="#" class="select-all">Select All</a> | <a href="#" class="select-none">Select None</a>
+  </div>
+</div>
 <script>
+  var speciesList = function() {
+    function count() {
+      return $('.species-list :checked').length;
+    }
+    function updateCounter() {
+      var c = count();
+      if (c > 0) {
+        $('.create-phylogeny').html('Create Phylogeny <span>(' + c + ' Species)</span>');        
+      } else {
+        $('.create-phylogeny').text('Create Phylogeny');                
+      }      
+    }
+    function isSelected($li) {
+      var checkbox = $li.find('input[type=checkbox]');
+      return checkbox.prop('checked');
+    }
+    function doSelect($li) {
+      var checkbox = $li.find('input[type=checkbox]');
+      checkbox.prop('checked', true);                      
+      $li.addClass('selected');        
+    }
+    function doDeselect($li) {
+      var checkbox = $li.find('input[type=checkbox]');
+      checkbox.prop('checked', false);              
+      $li.removeClass('selected');        
+    }
+    return {
+      select: function($li) {
+        if (isSelected($li)) {
+          doDeselect($li);
+        } else {
+          doSelect($li);
+        }
+        updateCounter();
+      },
+      selectAll: function() {
+        $('.species').each(function(){
+          doSelect($(this));
+        });
+        updateCounter();
+      },
+      deselectAll: function() {
+        $('.species').each(function(){
+          doDeselect($(this));
+        });
+        updateCounter();
+      }
+    }
+  }();
   $(document).ready(function(){
-    $('.species-list').delegate('li', 'click', function(){
-      var checkbox = $(this).find('input[type=checkbox]');
-      var li = $(this);
-      if (checkbox.prop('checked')) {
-        checkbox.prop('checked', false)        
-      } else {
-        checkbox.prop('checked', true)                
-      }
-      li.toggleClass('selected');
-      var count = $(':checked').length;
-      if (count > 0) {
-        $('.next').html('Create Phylogeny <span>(' + count + ' Species)</span>');        
-      } else {
-        $('.next').text('Create Phylogeny');                
-      }
+    $('.species-list').delegate('li', 'click', function() {
+      speciesList.select($(this));
     });
-    $('.species-list label').text(function(index, text){
+    $('.species-list label').text(function(index, text) {
       return text.replace('_', ' ');      
     });
-    $('.species-list').imagesLoaded(function(){
+    $('.species-list').imagesLoaded(function() {
       $(this).masonry({
         // options
         itemSelector : '.species',
         columnWidth : 240
       });
     });
-    $('.next').click(function(){
+    $('.next').click(function() {
       $('form').submit();
+    });
+    $('.select-all').click(function() {
+      speciesList.selectAll();
+    });
+    $('.select-none').click(function() {
+      speciesList.deselectAll();
     });
   });
 </script>
