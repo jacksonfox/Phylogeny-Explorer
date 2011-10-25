@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'csv'
 require 'yaml'
-require_relative 'partials'
+require File.join(File.dirname(__FILE__), 'partials')
 
 helpers Sinatra::Partials
 
@@ -92,7 +92,7 @@ helpers do
     species = species_ids.map{ |s| collection.find_by_id(s) }
 
     # Output distance matrix in phylip format
-    output.puts " #{species.count}"
+    output.puts " #{species.length}"
     species.each do |s|
       from_each = collection.distances_from(s, *species).map{|s2| s2[1].to_s}
       output.puts "#{s.name} #{from_each.join(' ').strip}"

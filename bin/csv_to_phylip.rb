@@ -48,7 +48,7 @@ species.uniq!
 
 output = File.open(output_file, 'w')
 
-output.puts " #{species.count}"
+output.puts " #{species.length}"
 species.each do |s|
   from_each = distances_from(s, *species).map{|s2| s2[1].to_s}
   output.puts "#{s} #{from_each.join(' ').strip}"
