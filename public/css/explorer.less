@@ -13,11 +13,15 @@ body {
   padding: 0;
 }
 
-h1 {
+h1, h2, h3, h4 {
   color: #333;
   font-family: "helvetica neue", sans-serif;
-  font-size: 36px;
 }
+
+h1 { font-size: 36px; font-weight: normal; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }
+h4 { font-size: 14px; }
 
 /* --------------------------------------------------
   Layout
@@ -43,21 +47,20 @@ header {
   border-top: none;
   box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.5), 0px 0px 0px 1px #777;
   margin: 0px 0px 20px -20px;
+  overflow: hidden;
   padding: 10px 20px;
-  position: fixed;  
   top: 0;
   width: 960px;
   z-index: 10;
   h1 {
     float: left;
-    margin: 0px;
+    font-family: 'Maiden Orange', cursive;
+    margin: 7px 0px 0px;
     text-shadow: 1px 1px 0 #fff;
   }
-  a {
+  .button {
+    .green-button;
     float: right;
-    span {
-      color: #777;
-    }
   }
 }
 
@@ -69,6 +72,26 @@ header {
   margin: 0;
   padding: 0;
   list-style-type: none;
+  .example {
+    float: left;
+    margin-right: 0px;
+    margin-bottom: 20px;
+    overflow-x: hidden;
+    position: relative;
+    .try-it {
+      background: #fff;
+      display: block;
+      font-family: 'Delius', cursive;
+      font-size: 24px;
+      text-decoration: none;
+      margin: 10px 0px;
+      &:hover:after {
+        color: #aaa;
+        content: 'Go >>';
+        float: right;
+      }
+    }
+  }
 }
 
 /* --------------------------------------------------
@@ -76,8 +99,8 @@ header {
 -------------------------------------------------- */
 
 .species-list {
-  margin: 0px;
-  padding: 90px 0px 0px;
+  margin: 0px 0px 80px;
+  padding: 0px;
 }
 .species {
   background: #fff;
@@ -128,6 +151,40 @@ header {
   }
 }
 
+/* Toolbar */
+
+#toolbar {
+  background: #fff;
+  background-image: -moz-linear-gradient(top, #fff, #eee);
+  background-image: -webkit-linear-gradient(top, #fff, #eee);
+  background-image: -ms-linear-gradient(top, #fff, #eee);
+  background-image: -o-linear-gradient(top, #fff, #eee);
+  background-image: linear-gradient(top, #fff, #eee);
+  bottom: 0;
+  border: 1px solid #fff;
+  border-top: none;
+  box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.5), 0px 0px 0px 1px #777;
+  margin: 0px 0px 0px -20px;
+  overflow: hidden;
+  padding: 10px 20px;
+  position: fixed;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  width: 960px;
+  z-index: 10;
+  .home {
+    float: left;
+  }
+  .create-phylogeny, .print-phylogeny {
+    .green-button;
+    float: right;
+  }
+  .select-actions {
+    float: right;
+    line-height: 28px;
+    margin: .5em 1.5em;
+  }
+}
+
 /* --------------------------------------------------
   Results
 -------------------------------------------------- */
@@ -135,7 +192,30 @@ header {
 .results {
   background: #fff;
   margin: 0px;
-  padding: 90px 20px 0px;  
+  padding: 40px;  
+  h2 {
+    margin-top: 0;
+  }
+  #phylogeny-canvas {
+    border: 10px solid #eee;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+
+/* --------------------------------------------------
+  Homepage
+-------------------------------------------------- */
+
+.homepage {
+  h1 {
+    font-family: 'Maiden Orange', cursive;
+    font-size: 72px;    
+  }
+  .instructions {
+    color: #ddd;
+  }
 }
 
 /* --------------------------------------------------
@@ -147,22 +227,33 @@ header {
   background: #fff;
   line-height: 21px;
   margin: 0px;
-  padding: 90px 40px 40px;  
+  padding: 10px 40px 40px;  
   article {
     float: left;
-    width: 630px;
+    width: 620px;
     margin-right: 40px;
   }
 }
 
 .sidebar {
   float: right;
-  width: 210px;
-  h2 {
-    font-size: 14px;
-  }
+  width: 220px;
   img {
+    display: block;
     width: 200px;
-    border: 5px solid #eee;
+    border: 10px solid #eee;
   }
+  p {
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 0px;
+    padding: 0px 10px 10px;
+  }
+}
+
+.print-footer {
+  .hide;
+}
 }
