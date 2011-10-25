@@ -1,3 +1,14 @@
+/* CSS3 Helpers */
+.linear-gradient (@from, @to) {
+  background-color: @to;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(@from), to(@to));
+  background-image: -webkit-linear-gradient(top, @from, @to);
+  background-image: -moz-linear-gradient(top, @from, @to);
+  background-image: -ms-linear-gradient(top, @from, @to);
+  background-image: -o-linear-gradient(top, @from, @to);
+  background-image: linear-gradient(top, @from, @to);
+}
+
 /* For modern browsers */
 .cf:before,
 .cf:after {
@@ -14,6 +25,7 @@
   zoom:1;
 }
 
+/* Buttons */
 .button {
   display: inline-block;
   white-space: nowrap;
@@ -82,6 +94,28 @@
 
 .next:before {
   content: "\279C";
+}
+
+.green-button {
+  .linear-gradient(#8fab39, #6f852c);
+  -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.2) inset, 0 1px 0 rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.2) inset, 0 1px 0 rgba(0,0,0,.3);
+  box-shadow: 0 0 1px 1px rgba(255,255,255,.2) inset, 0 1px 0 rgba(0,0,0,.3);
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.5);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.5);  
+  &:before {
+    -moz-box-shadow: -1px 0 0 rgba(255,255,255,.5), -2px 0 0 rgba(0,0,0,.5);
+    -webkit-box-shadow: -1px 0 0 rgba(0,0,0,.5), -2px 0 0 rgba(255,255,255,.5);
+    box-shadow: -1px 0 0 rgba(255,255,255,.5), -2px 0 0 rgba(0,0,0,.5);    
+  }
+  &:hover {
+    .linear-gradient(#9ab83d, #859e35);  
+    color: #fff;  
+  }
+  span {
+    color: #c9da91;
+  }
 }
 
 /* Utility Classes */
