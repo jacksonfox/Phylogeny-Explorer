@@ -1,7 +1,7 @@
 require 'rubygems'
-require 'sinatra'
 require 'csv'
 require 'yaml'
+require 'vendor/sinatra/lib/sinatra.rb'
 require File.join(File.dirname(__FILE__), 'partials')
 
 helpers Sinatra::Partials
