@@ -36,7 +36,7 @@
     $('[rel=examples]').fancybox({titlePosition: 'inside', margin: 100, cyclic: true});
     $('.fancy').fancybox({titlePosition: 'inside'});
     $('.launch-examples').click(function(event){
-      $('[rel=examples]')[0].click();
+      $('[rel=examples]:first').click();
       event.preventDefault();
     });
   });
