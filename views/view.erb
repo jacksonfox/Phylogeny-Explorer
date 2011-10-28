@@ -5,10 +5,10 @@
 </header>
 <section class="results">
   <h2>Your Phylogeny</h2>
-  <% if !@species.nil? %>
-    <div id="phylogeny-canvas"></div>
+  <% if @species.nil? || @species.length < 3 %>
+    <p>Please select at least 3 species</p>
   <% else %>
-    <p>You didn't select any species</p>
+    <div id="phylogeny-canvas"></div>
   <% end %>
 </section>
 <div id="toolbar">
@@ -20,12 +20,12 @@
 </div>
 <script>
   $(document).ready(function(){
-    var speciesCount = <%= @species.length %>;
-    if (speciesCount > 0) {
+    var speciesCount = <%= @species.nil? ? 0 : @species.length %>;
+    if (speciesCount > 2) {
       $.ajax({
         type: 'POST',
         url: '/generate',
-        data: { species: "<%= @species.map{ |s| s.id }.join(',') %>" },
+        data: { species: "<%= @species.map{ |s| s.id }.join(',') unless @species.nil? %>" },
         success: function(data) {
           var dataObject = { newick: data };
           Smits.PhyloCanvas.Render.Style.line["stroke"] = 'rgb(100,100,100)';

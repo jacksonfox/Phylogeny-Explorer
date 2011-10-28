@@ -122,17 +122,28 @@ end
 
 post '/generate' do
   species_ids = params[:species].split(',').map{ |id| id.to_i }
-  distances_file = write_distances_file(collection, *species_ids)
-  status 200
-  output = `bin/make_tree.pl --file #{distances_file}`
-  body(output)
+  if (species_ids.length < 3)
+    status 400
+    body("Could not generate phylogeny with the specified species")
+  else
+    distances_file = write_distances_file(collection, *species_ids)
+    status 200
+    output = `bin/make_tree.pl --file #{distances_file}`
+    body(output)
+  end
 end
 
 post '/get_image' do
   species_name = params[:species]
-  image = collection.find_by_name(species_name).image
-  status 200
-  body(image)
+  species = collection.find_by_name(species_name)
+  if (species.nil?)
+    status 404
+    body("Could not find image URL")
+  else
+    image = species.image
+    status 200
+    body(image)
+  end
 end
 
 post '/view' do
