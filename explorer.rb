@@ -62,6 +62,11 @@ class Collection
     species = @species.select{ |s| s.id == id }
     return species.first
   end
+
+  def find_by_name(name)
+    species = @species.select{ |s| s.name == name }
+    return species.first
+  end
 end
 
 class CollectionSpecies
@@ -121,6 +126,13 @@ post '/generate' do
   status 200
   output = `bin/make_tree.pl --file #{distances_file}`
   body(output)
+end
+
+post '/get_image' do
+  species_name = params[:species]
+  image = collection.find_by_name(species_name).image
+  status 200
+  body(image)
 end
 
 post '/view' do

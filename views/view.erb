@@ -39,8 +39,32 @@
           /* Clean up the labels */
           var labels = document.getElementsByTagName('tspan');
           for (i = 0; i < labels.length; i++) {
-            console.log(labels[i].textContent);
-            labels[i].textContent = labels[i].textContent.replace('_', ' ');            
+            var label = $(labels[i]);
+            var text = labels[i].textContent;
+            label.data('name', text);
+            labels[i].textContent = text.replace('_', ' ');            
+            $.ajax({
+              type: 'POST',
+              url: '/get_image',
+              context: label,
+              data: { species: label.data('name') },
+              success: function(data, textStatus, jqXHR) {
+                console.log(this.data('name') + ' --> ' + data);
+                this.data('image', data);
+              }
+            });
+            label.hover(function(event) {
+              var image = $('#species-image');
+              var label = $(this);
+              var parent = label.parent();
+              image.html('<img src="' + label.data('image') + '" />');
+              image.css('left', $('#phylogeny-canvas').position().left + $('#phylogeny-canvas').width() + 10);
+              image.css('top', Math.round($('#phylogeny-canvas').position().top) + parseInt(parent.attr('y')) + 20 - (image.height()/2) + 'px');
+              image.show();
+            }, function(event) {
+              var image = $('#species-image');
+              image.hide();
+            });
           }
         }
       });      
@@ -51,4 +75,5 @@
     });
   });
 </script>
+<div id="species-image" class="hide"></div>
 <%= partial(:'common/footer') %>
