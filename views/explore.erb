@@ -1,7 +1,7 @@
 <%= partial(:'common/header') %>
 <header>
   <h1>Phylogeny Explorer: <%= @collection.name %></h1>
-  <a href="#" class="create-phylogeny button next">Create Phylogeny</a>
+  <a href="#" class="create-phylogeny button next disabled">Create Phylogeny</a>
 </header>
 <form action="/view" method="post">
   <ul class="species-list">
@@ -22,7 +22,7 @@
 </form>
 <div id="toolbar">
   <a href="/" class="home button">Back Home</a>
-  <a href="#" class="create-phylogeny button next">Create Phylogeny</a>
+  <a href="#" class="create-phylogeny button next disabled">Create Phylogeny</a>
   <div class="select-actions">
     <a href="#" class="select-all">Select All</a> | <a href="#" class="select-none">Select None</a>
   </div>
@@ -31,6 +31,14 @@
   var speciesList = function() {
     function count() {
       return $('.species-list :checked').length;
+    }
+    function updateActions() {
+      var c = count();
+      if (c < 3) {
+        $('.next').addClass('disabled');
+      } else {
+        $('.next').removeClass('disabled');
+      }
     }
     function updateCounter() {
       var c = count();
@@ -62,18 +70,21 @@
           doSelect($li);
         }
         updateCounter();
+        updateActions();
       },
       selectAll: function() {
         $('.species').each(function(){
           doSelect($(this));
         });
         updateCounter();
+        updateActions();
       },
       deselectAll: function() {
         $('.species').each(function(){
           doDeselect($(this));
         });
         updateCounter();
+        updateActions();
       }
     }
   }();
@@ -91,8 +102,11 @@
         columnWidth : 240
       });
     });
-    $('.next').click(function() {
-      $('form').submit();
+    $('.next').click(function(event) {
+      var disabled = $(this).hasClass('disabled');
+      if (!disabled) {
+        $('form').submit();        
+      }        
     });
     $('.select-all').click(function() {
       speciesList.selectAll();
