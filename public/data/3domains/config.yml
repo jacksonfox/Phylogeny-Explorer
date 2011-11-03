@@ -1,0 +1,9 @@
+# Collection Config
+#  name: Name of the collection
+#  preview_image: Image to use as a preview on the homepage
+#  species_file: List of species in CSV format (ID, species_name, image_file, wikipedia_url, animal_diversity_url)
+#  distances_file: Genetic distance information in CSV format (species_name1, species_name2, distance)
+name: 3 Domains
+preview_image: preview.jpg
+species_file: 3domains.csv
+distances_file: 3domains_dist.csv
