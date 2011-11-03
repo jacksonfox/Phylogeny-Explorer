@@ -6,10 +6,20 @@
     <p>The central tenet of Darwin’s Theory of evolution is that all living organisms are related via a process of descent with modification from a common ancestor. Phylogeny is  the manifestation of this pattern, and a vital concept in modern biology. Phylogenies are figures that track the descent from a common ancestor of some group of organisms. These organisms can be closely related (such as populations within a species) or distantly related (such as all living things on the planet). In either case, phylogenies allow biologists to understand the pattern of diversification, to infer degrees of relatedness among the species in the phylogeny, and to produce a rough estimate of the relative timing of diversification. Phylogenies can be estimated using different methods from many sources of data, but it is common for modern phylogenies to be based on the pattern of variation in DNA sequences.</p>
     <h2>Try it Out <span class="instructions">(choose a collection to start)</span></h2>
     <ul class="phylogeny-examples">
-      <li class="example">
+      <% @collections.each do |id, c| %>
+        <li class="example">
+          <a href="<%= explore_collection_url(c) %>"><img src="<%= c.image %>" title="Click to explore" /></a>
+          <a href="<%= explore_collection_url(c) %>" class="try-it"><%= c.name %></a>  
+        </li>
+      <% end %>
+      <!-- <li class="example">
         <a href="/explore"><img src="/data/primates/preview.jpg" title="Click to explore primate phylogeny" /></a>
         <a href="/explore" class="try-it">Primates</a>
       </li>
+      <li class="example">
+        <a href="/explore"><img src="/data/3domains/preview.jpg" title="Click to explore" /></a>
+        <a href="/explore" class="try-it">3 Domains</a>
+      </li> -->
     </ul>  
   </article>
   <div class="sidebar">

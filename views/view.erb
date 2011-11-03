@@ -25,7 +25,10 @@
       $.ajax({
         type: 'POST',
         url: '/generate',
-        data: { species: "<%= @species.map{ |s| s.id }.join(',') unless @species.nil? %>" },
+        data: { 
+          species: "<%= @species.map{ |s| s.id }.join(',') unless @species.nil? %>",
+          collection: "<%= @collection.url %>"
+        },
         success: function(data) {
           var dataObject = { newick: data };
           Smits.PhyloCanvas.Render.Style.line["stroke"] = 'rgb(100,100,100)';
@@ -47,9 +50,11 @@
               type: 'POST',
               url: '/get_image',
               context: label,
-              data: { species: label.data('name') },
+              data: { 
+                species: label.data('name'), 
+                collection: "<%= @collection.url %>"
+              },
               success: function(data, textStatus, jqXHR) {
-                console.log(this.data('name') + ' --> ' + data);
                 this.data('image', data);
               }
             });

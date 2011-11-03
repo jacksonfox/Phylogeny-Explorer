@@ -81,6 +81,9 @@ header {
     margin-bottom: 20px;
     overflow-x: hidden;
     position: relative;
+    + .example {
+      margin-left: 20px;
+    }
     .try-it {
       background: #fff;
       display: block;
@@ -148,7 +151,8 @@ header {
   }
   div:before {
     content: '\2713';
-    float: right;
+    position: absolute;
+    right: 10px;
     background: yellow;
     padding: 0px 5px;
   }

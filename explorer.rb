@@ -11,14 +11,16 @@ DATA_DIR = '/public/data/'
 DATA_URL = '/data/'
 
 class Collection
-  attr_accessor :species, :name, :url, :distances
+  attr_accessor :species, :name, :url, :distances, :asset_url
   
   def initialize(collection_name)
     config_file = File.join(Dir.pwd, DATA_DIR, collection_name, 'config.yml')
     config = YAML.load_file(config_file)
         
     @name = config['name']
-    @url = File.join(DATA_URL, collection_name)
+    @asset_url = File.join(DATA_URL, collection_name)
+    @url = collection_name
+    @image = config["preview_image"]
     
     base_path = File.join(Dir.pwd, DATA_DIR, collection_name)
 
@@ -39,6 +41,10 @@ class Collection
         :distance => d[2]
       }
     end
+  end
+  
+  def image
+    return File.join(@asset_url, @image)
   end
   
   def distance_between(s1, s2)
@@ -82,7 +88,7 @@ class CollectionSpecies
   end
   
   def image
-    File.join(@collection.url, @image)
+    File.join(@collection.asset_url, '/images/', @image)
   end
 end
 
@@ -91,6 +97,7 @@ helpers do
     t = Time.now.strftime("%Y%m%d")
     filename = "#{prefix}#{t}-#{$$}-#{rand(0x100000000).to_s(36)}#{suffix}"
   end
+  
   def write_distances_file(collection, *species_ids)    
     output_file = File.join(Dir.pwd, TEMP_DIR, generate_tempfile_name(nil,".dist"))
     output = File.open(output_file, 'w')
@@ -107,20 +114,41 @@ helpers do
     output.close    
     return output_file
   end
+  
+  def explore_collection_url(collection)
+    return '/explore/' + collection.url
+  end
+  
+  def view_collection_url(collection)
+    return '/view/' + collection.url
+  end
 end
 
-collection = Collection.new('primates')
+def load_collections
+  collections = Hash.new
+  data_dir = File.join(Dir.pwd, DATA_DIR)
+  Dir["#{data_dir}/*"].each do |f|
+    collection_name = File.basename(f)
+    puts "[explorer] added collection #{collection_name}"
+    collections[collection_name] = Collection.new(collection_name)
+  end
+  return collections
+end
+
+collections = load_collections
 
 get '/' do
+  @collections = collections
   erb :home
 end
 
-get '/explore' do
-  @collection = collection
+get '/explore/:collection' do
+  @collection = collections[params[:collection]]
   erb :explore
 end
 
 post '/generate' do
+  collection = collections[params[:collection]]
   species_ids = params[:species].split(',').map{ |id| id.to_i }
   if (species_ids.length < 3)
     status 400
@@ -135,6 +163,7 @@ end
 
 post '/get_image' do
   species_name = params[:species]
+  collection = collections[params[:collection]]
   species = collection.find_by_name(species_name)
   if (species.nil?)
     status 404
@@ -146,11 +175,11 @@ post '/get_image' do
   end
 end
 
-post '/view' do
-  @collection = collection
+post '/view/:collection' do
+  @collection = collections[params[:collection]]
   unless params[:species].nil?
     species_ids = params[:species].collect {|s| s[0].to_i}
-    @species = collection.species.select {|s| species_ids.include?(s.id)}
+    @species = @collection.species.select {|s| species_ids.include?(s.id)}
   end
   erb :view
 end

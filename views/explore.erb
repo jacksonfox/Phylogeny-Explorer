@@ -3,7 +3,7 @@
   <h1>Phylogeny Explorer: <%= @collection.name %></h1>
   <a href="#" class="create-phylogeny button next disabled">Create Phylogeny</a>
 </header>
-<form action="/view" method="post">
+<form action="<%= view_collection_url(@collection) %>" method="post">
   <ul class="species-list">
   <% @collection.species.each do |s| %>
     <li class="species" id="species-<%= s.id %>">
