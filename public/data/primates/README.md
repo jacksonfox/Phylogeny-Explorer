@@ -14,7 +14,7 @@ The main configuration file is `config.yml`, which specifies the name of the col
 
 The species data file is in CSV format:
 
-`ID, species_name, image_file, wikipedia_url, animal_diversity_url`
+`ID, species_name, domain, image_file, wikipedia_url, animal_diversity_url`
 
 The distance data is also in CSV format:
 
