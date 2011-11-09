@@ -11,9 +11,16 @@
       <div>
         <input type="checkbox" name="species[<%= s.id %>]" />
         <label><%= s.name %></label>
+        <% unless s.domain.nil? %>
+          <p class="species-domain"><%= s.domain %>
+        <% end %>
         <ul class="species-links">
-          <li><a href="<%= s.wiki_link %>">Wikipedia</a></li>
-          <li><a href="<%= s.div_link %>">Animal Diversity</a></li>
+          <% unless s.wiki_link.nil? %>
+            <li><a href="<%= s.wiki_link %>">Wikipedia</a></li>
+          <% end %>
+          <% unless s.div_link.nil? %>
+            <li><a href="<%= s.div_link %>">Animal Diversity</a></li>
+          <% end %>
         </ul>
       </div>
     </li>
