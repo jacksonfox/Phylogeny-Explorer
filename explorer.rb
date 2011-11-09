@@ -76,14 +76,15 @@ class Collection
 end
 
 class CollectionSpecies
-  attr_accessor :id, :name, :wiki_link, :div_link, :collection
+  attr_accessor :id, :name, :wiki_link, :div_link, :collection, :domain
   
   def initialize(data, collection)
     @id = data[0].to_i
     @name = data[1]
-    @image = data[2]
-    @wiki_link = data[3]
-    @div_link = data[4]
+    @domain = data[2]
+    @image = data[3]
+    @wiki_link = data[4]
+    @div_link = data[5]
     @collection = collection
   end
   
