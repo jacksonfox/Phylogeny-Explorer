@@ -7,3 +7,4 @@ name: Primates
 preview_image: preview.jpg
 species_file: primates.csv
 distances_file: primates_dist.csv
+description: While genetic information is primarily encoded in DNA, proteins are required to perform the activities needed for sustaining life.  One step in turning the information in DNA into proteins is called 'translation' and is accomplished by a part of the cell called the ribosome.  Since all living things need to perform translation, they all have ribosomes that themselves are made up of RNA and protein. This data set compares one of the ribosomal RNA sequences across species from all 3 domains of life (bacteria, archaea, and eukaryotes).  Even though this RNA molecule often differs in length across species, biologists can use knowledge of the structure formed by ribosomal RNA to predict which sites are homologous (i.e., which are related by direct ancestry).
