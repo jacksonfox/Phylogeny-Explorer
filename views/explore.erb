@@ -1,6 +1,9 @@
 <%= partial(:'common/header') %>
 <header>
   <h1>Phylogeny Explorer: <%= @collection.name %></h1>
+  <% unless @collection.description.nil? %>
+    <a href="#" class="collection-description" data-description="<%= @collection.description %>"><img src="/images/info_12x24.png" /></a>
+  <% end %>
   <a href="#" class="create-phylogeny button next disabled">Create Phylogeny</a>
 </header>
 <form action="<%= view_collection_url(@collection) %>" method="post">
@@ -121,6 +124,31 @@
     $('.select-none').click(function() {
       speciesList.deselectAll();
     });
+    (function($){
+      var $parent = $('.collection-description');
+
+      var $panel = $('<div />', {
+        class: 'collection-description-panel',
+        text: $parent.data('description')
+      });
+
+      $parent.click(function() {
+        var $body = $('body');
+        var $src = $(this);
+
+        if ($panel.parent().length > 0) {
+          $panel.detach();
+        } else {
+          var offset = $src.offset();
+          var left = offset.left;
+          var top = offset.top;
+
+          $body.append($panel);
+          $panel.css('left', left - ($panel.width()/2) - 6);
+          $panel.css('top', top + 24 + 10);           
+        }
+      });      
+    })(jQuery);
   });
 </script>
 <%= partial(:'common/footer') %>

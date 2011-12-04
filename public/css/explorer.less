@@ -58,6 +58,11 @@ header {
     margin: 7px 0px 0px;
     text-shadow: 1px 1px 0 #fff;
   }
+  .collection-description {
+    float: left;
+    margin-left: 20px;
+    margin-top: 9px;
+  }
   .create-phylogeny, .print-phylogeny {
     .green-button;
     float: right;
@@ -65,6 +70,40 @@ header {
   .disabled {
     .disabled-button;
   }
+}
+
+.collection-description-panel {
+  background: #fff;
+  border: 2px solid #000;
+  font-size: 12px;
+  line-height: 18px;
+  left: 0;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  width: 400px;
+}
+
+.collection-description-panel:after, .collection-description-panel:before {
+	border: solid transparent;
+	content: ' ';
+	height: 0;
+	left: 50%;
+	margin-left: -20px;
+	position: absolute;
+	width: 0;
+}
+
+.collection-description-panel:after {
+	border-width: 10px;
+	border-bottom-color: #fff;
+	top: -17px;
+}
+
+.collection-description-panel:before {
+	border-width: 10px;
+	border-bottom-color: #333;
+	top: -20px;
 }
 
 /* --------------------------------------------------

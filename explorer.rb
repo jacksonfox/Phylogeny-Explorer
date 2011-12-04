@@ -11,7 +11,7 @@ DATA_DIR = '/public/data/'
 DATA_URL = '/data/'
 
 class Collection
-  attr_accessor :species, :name, :url, :distances, :asset_url
+  attr_accessor :species, :name, :url, :distances, :asset_url, :description
   
   def initialize(collection_name)
     config_file = File.join(Dir.pwd, DATA_DIR, collection_name, 'config.yml')
@@ -21,6 +21,7 @@ class Collection
     @asset_url = File.join(DATA_URL, collection_name)
     @url = collection_name
     @image = config["preview_image"]
+    @description = config["description"]
     
     base_path = File.join(Dir.pwd, DATA_DIR, collection_name)
 
